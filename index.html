@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Star To-Be Soccer Academy | Official Match Center & Academy Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow+Condensed:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* ─── RESET & ROOT ─── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --blue: #0A66C2;
+      --blue-deep: #003f8a;
+      --blue-mid: #1a5fa8;
+      --blue-glow: rgba(10,102,194,0.55);
+      --gold: #F5A623;
+      --gold-light: #ffc857;
+      --gold-dark: #c7841a;
+      --bg: #050810;
+      --bg2: #080d1a;
+      --bg3: #0d1426;
+      --card: #0e1829;
+      --border: rgba(10,102,194,0.22);
+      --border-gold: rgba(245,166,35,0.38);
+      --text: #EFF3FF;
+      --muted: #7A8BAD;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --radius-lg: 28px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(var(--blue), var(--gold)); border-radius: 6px; }
+
+    /* ─── GRAIN OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 9998;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.018;
+    }
+
+    /* ─── UTILITY ─── */
+    .container { max-width: 1320px; margin: 0 auto; padding: 0 5%; }
+
+    .label {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 3.5px; text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(245,166,35,0.08);
+      border: 1px solid rgba(245,166,35,0.28);
+      padding: 5px 16px; border-radius: 40px;
+      margin-bottom: 16px;
+    }
+
+    h1, h2, h3 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+      line-height: 0.95; color: #fff; margin-bottom: 10px;
+    }
+    .section-title .gold { color: var(--gold); }
+    .section-title .blue { color: #5ba4f5; }
+
+    .divider {
+      width: 64px; height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--gold));
+      border-radius: 4px; margin: 12px 0 26px;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(110deg, var(--blue) 0%, var(--blue-deep) 100%);
+      color: #fff; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      text-decoration: none; padding: 13px 34px; border-radius: 50px;
+      border: none; cursor: pointer;
+      box-shadow: 0 0 28px rgba(10,102,194,0.4);
+      transition: all 0.3s var(--ease);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 6px 40px rgba(10,102,194,0.65); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      text-decoration: none; padding: 12px 34px; border-radius: 50px;
+      border: 1.5px solid rgba(255,255,255,0.28); cursor: pointer;
+      transition: all 0.3s var(--ease);
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 900;
+      padding: 0 5%;
+      background: rgba(5,8,16,0.88);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(5,8,16,0.98);
+      box-shadow: 0 4px 40px rgba(0,0,0,0.55);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1320px; margin: 0 auto; height: 70px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-badge {
+      width: 46px; height: 46px;
+      background: linear-gradient(145deg, var(--blue), var(--blue-deep));
+      border-radius: 13px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 10px; letter-spacing: 1px; line-height: 1.2; color: #fff;
+      box-shadow: 0 6px 20px rgba(10,102,194,0.45);
+      position: relative; overflow: hidden; flex-shrink: 0;
+    }
+    .logo-badge::after {
+      content: '';
+      position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.07), transparent);
+      transform: rotate(45deg);
+    }
+    .logo-text-wrap { line-height: 1.15; }
+    .logo-main { font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem; letter-spacing: 2px; color: #fff; }
+    .logo-sub { font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); }
+
+    .nav-links { display: flex; gap: 26px; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+      transition: color 0.2s;
+      position: relative; padding-bottom: 2px;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -2px; left: 0;
+      width: 0; height: 2px; background: var(--gold);
+      transition: width 0.3s var(--ease);
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      background: linear-gradient(110deg, var(--gold-dark), var(--gold));
+      color: #000; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.82rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+      text-decoration: none; padding: 9px 22px; border-radius: 40px;
+      transition: all 0.25s; white-space: nowrap;
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,166,35,0.38); }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px; background: none; border: none;
+    }
+    .hamburger span { width: 24px; height: 2px; background: #fff; transition: 0.3s; border-radius: 2px; display: block; }
+
+    .mobile-nav-drawer {
+      display: none; flex-direction: column;
+      position: fixed; top: 70px; left: 0; right: 0;
+      background: rgba(5,8,16,0.99);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 5% 24px;
+      gap: 2px; z-index: 899;
+    }
+    .mobile-nav-drawer.open { display: flex; }
+    .mobile-nav-drawer a {
+      color: var(--muted); text-decoration: none;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: color 0.2s;
+    }
+    .mobile-nav-drawer a:hover { color: var(--gold); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh; position: relative;
+      display: flex; align-items: center; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://instagram.fskp1-1.fna.fbcdn.net/v/t51.2885-15/375329993_18189124774306706_7946599905105544469_n.jpg?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDQweDE0NDAuc2RyLmYzNzUzMjk5OTMifQ&_nc_ht=instagram.fskp1-1.fna.fbcdn.net&_nc_cat=100&_nc_ohc=3R6c0rCXsTkQ7kNvwEEsPP-&edm=APU89FABAAAA&ccb=7-5&ig_cache_key=MzE2NTE5ODU4NjIxOTU4NTA5Mw%3D%3D.2-ccb7-5&oh=00_Af_H2ZUn3gFb98dNcNsXhDovFbG08hM6K4WX08ysDkz6XQ&oe=680C603B&_nc_sid=bc0c2d');
+      background-size: cover; background-position: center 30%;
+      filter: brightness(0.28) saturate(1.3);
+      animation: heroZoom 18s ease-in-out infinite alternate;
+    }
+    @keyframes heroZoom {
+      from { transform: scale(1.0); }
+      to   { transform: scale(1.07); }
+    }
+    @keyframes logoPulse {
+      0%, 100% { box-shadow: 0 0 0 2px rgba(245,166,35,0.5), 0 12px 48px rgba(10,102,194,0.55), 0 0 60px rgba(245,166,35,0.1); }
+      50%       { box-shadow: 0 0 0 4px rgba(245,166,35,0.8), 0 16px 56px rgba(10,102,194,0.7), 0 0 100px rgba(245,166,35,0.25); }
+    }
+    /* ─── HERO LOGO RIGHT ─── */
+    .hero-logo-right {
+      position: absolute;
+      top: 50%;
+      right: 6%;
+      transform: translateY(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      pointer-events: none;
+    }
+    .hero-logo-img {
+      width: 260px;
+      height: 260px;
+      border-radius: 32px;
+      object-fit: cover;
+      object-position: center;
+      box-shadow:
+        0 0 0 3px rgba(245,166,35,0.55),
+        0 0 0 7px rgba(245,166,35,0.12),
+        0 16px 64px rgba(10,102,194,0.6),
+        0 0 100px rgba(245,166,35,0.18);
+      animation: logoPulse 3s ease-in-out infinite;
+    }
+    .hero-logo-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(245,166,35,0.8);
+      text-align: center;
+      background: rgba(5,8,16,0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 5px 18px;
+      border-radius: 30px;
+      border: 1px solid rgba(245,166,35,0.25);
+    }
+
+    /* On tablet: shrink and keep visible */
+    @media (max-width: 1100px) {
+      .hero-logo-img { width: 200px; height: 200px; border-radius: 26px; }
+      .hero-logo-right { right: 3%; }
+    }
+
+    /* On mobile: hide absolute badge, show inline one */
+    @media (max-width: 768px) {
+      .hero-logo-right { display: none; }
+    }
+
+    /* Mobile inline logo */
+    .hero-logo-mobile {
+      display: none;
+      align-items: center;
+      gap: 16px;
+      margin-top: 28px;
+      padding: 16px 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(245,166,35,0.3);
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .hero-logo-mobile-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 14px;
+      object-fit: cover;
+      object-position: center;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 2px rgba(245,166,35,0.45), 0 8px 24px rgba(10,102,194,0.5);
+    }
+    .hero-logo-mobile-text { display: flex; flex-direction: column; gap: 4px; }
+    @media (max-width: 768px) {
+      .hero-logo-mobile { display: flex; }
+    }
+    .hero-gradient {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(180deg, rgba(5,8,16,0.7) 0%, transparent 40%, rgba(5,8,16,0.85) 100%),
+        linear-gradient(90deg, rgba(5,8,16,0.95) 0%, rgba(5,8,16,0.3) 60%, transparent 100%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(10,102,194,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(10,102,194,0.05) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 150px 5% 100px;
+      max-width: 860px; width: 100%;
+    }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.76rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 22px;
+    }
+    .hero-eyebrow::before { content: ''; width: 36px; height: 2px; background: var(--gold); display: block; }
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 10vw, 8.5rem);
+      line-height: 0.88; color: #fff; margin-bottom: 22px;
+    }
+    .hero h1 .line1 { display: block; color: #5ba4f5; text-shadow: 0 0 60px rgba(10,102,194,0.5); }
+    .hero h1 .line2 { display: block; color: var(--gold); font-size: clamp(2.5rem, 5.5vw, 5.2rem); }
+    .hero h1 .line3 { display: block; }
+    .hero-desc {
+      font-size: 1.1rem; font-weight: 400; color: var(--muted);
+      max-width: 460px; line-height: 1.75; margin-bottom: 34px;
+    }
+    .hero-desc strong { color: #fff; }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 52px; }
+    .hero-stats { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hstat {
+      text-align: center;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 18px 24px; border-radius: var(--radius-md);
+    }
+    .hstat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--gold); line-height: 1; }
+    .hstat-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+    .scroll-indicator {
+      position: absolute; bottom: 28px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      opacity: 0.45; z-index: 2; animation: bounce 2s ease infinite;
+    }
+    .scroll-indicator span { font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; }
+    @keyframes bounce { 0%,100%{ transform: translateX(-50%) translateY(0); } 50%{ transform: translateX(-50%) translateY(7px); } }
+
+    /* ─── TICKER ─── */
+    .ticker {
+      background: linear-gradient(90deg, var(--blue-deep) 0%, var(--blue) 50%, var(--blue-deep) 100%);
+      padding: 11px 0; overflow: hidden;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .ticker-track {
+      display: flex; gap: 56px; width: max-content;
+      animation: tickerScroll 32s linear infinite;
+    }
+    .ticker:hover .ticker-track { animation-play-state: paused; }
+    @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .ticker-item {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.82rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .ticker-item i { color: var(--gold); font-size: 0.8rem; }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 110px 5%; }
+    #about { background: var(--bg); }
+    #matchcenter { background: var(--bg2); padding: 110px 5%; }
+    #players { background: var(--bg); }
+    #junior { background: var(--bg2); }
+    #gallery { background: var(--bg); }
+    #sponsors { background: var(--bg2); padding: 80px 5%; }
+    #contact { background: var(--bg); }
+
+    /* ─── ABOUT ─── */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 72px; align-items: center;
+    }
+    .about-img-block { position: relative; border-radius: var(--radius-lg); overflow: hidden; }
+    .about-img-block img {
+      width: 100%; height: 520px;
+      object-fit: cover; object-position: center;
+      display: block; border-radius: var(--radius-lg);
+      filter: saturate(1.1);
+    }
+    .about-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(5,8,16,0.82) 0%, transparent 55%);
+      border-radius: var(--radius-lg);
+    }
+    .about-img-badge {
+      position: absolute; bottom: 24px; left: 24px;
+      background: rgba(8,13,26,0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-md); padding: 14px 22px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .aib-icon { font-size: 1.8rem; color: var(--gold); }
+    .aib-text .num { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; line-height: 1; color: #fff; }
+    .aib-text .sub { font-size: 0.68rem; letter-spacing: 2.5px; text-transform: uppercase; color: var(--muted); }
+
+    .about-text p { color: var(--muted); line-height: 1.82; margin-bottom: 16px; font-size: 1.02rem; }
+    .about-pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px; }
+    .pillar {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 18px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .pillar:hover { border-color: var(--gold); transform: translateY(-3px); }
+    .pillar-icon { font-size: 1.5rem; margin-bottom: 8px; }
+    .pillar h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px; }
+    .pillar p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+    /* ─── MATCH CENTER ─── */
+    .matchcenter-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; flex-wrap: wrap; gap: 18px; }
+
+    .featured-match {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); overflow: hidden;
+      position: relative; margin-bottom: 28px;
+      box-shadow: 0 8px 60px rgba(0,0,0,0.3), 0 0 40px rgba(245,166,35,0.04);
+    }
+    .fm-top-bar {
+      background: linear-gradient(90deg, var(--blue-deep) 0%, var(--blue) 100%);
+      padding: 12px 32px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 10px;
+    }
+    .fm-badge { font-family: 'Barlow Condensed', sans-serif; font-size: 0.76rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+    .fm-date { font-size: 0.8rem; color: rgba(255,255,255,0.65); font-weight: 600; }
+
+    .fm-body {
+      padding: 36px 44px;
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      gap: 28px; align-items: center;
+    }
+    .fm-team { text-align: center; }
+    .fm-team-logo {
+      width: 76px; height: 76px; border-radius: 50%;
+      background: var(--bg3); border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif; font-size: 0.95rem;
+      margin: 0 auto 12px; overflow: hidden;
+    }
+    .fm-team-logo img { width: 100%; height: 100%; object-fit: cover; }
+    .fm-team-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.05rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #fff; }
+    .fm-team-sub { font-size: 0.76rem; color: var(--muted); margin-top: 4px; }
+
+    .fm-score { display: flex; align-items: center; justify-content: center; gap: 4px; font-family: 'Bebas Neue', sans-serif; }
+    .fm-score-num { font-size: clamp(3.5rem, 7vw, 5.5rem); line-height: 1; color: #fff; }
+    .fm-score-num.win { color: var(--gold); text-shadow: 0 0 30px rgba(245,166,35,0.35); }
+    .fm-score-sep { font-size: 2.5rem; color: var(--muted); margin: 0 2px; }
+
+    .fm-footer {
+      padding: 18px 44px 30px;
+      display: flex; justify-content: center; gap: 36px; flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+    }
+    .fm-stat { display: flex; align-items: center; gap: 8px; font-size: 0.86rem; color: var(--muted); }
+    .fm-stat i { color: var(--gold); }
+    .fm-stat strong { color: #fff; }
+
+    /* Photo Cards */
+    .match-photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+    .match-photo-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); overflow: hidden; position: relative;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .match-photo-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+    .match-photo-card img {
+      width: 100%; height: 300px;
+      object-fit: cover; object-position: center top;
+      display: block; transition: transform 0.5s var(--ease);
+    }
+    .match-photo-card:hover img { transform: scale(1.04); }
+    .mpc-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(5,8,16,0.96) 0%, rgba(5,8,16,0.18) 55%, transparent 100%);
+    }
+    .mpc-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px; }
+    .mpc-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); background: rgba(245,166,35,0.1);
+      border: 1px solid rgba(245,166,35,0.28);
+      padding: 3px 12px; border-radius: 30px; display: inline-block; margin-bottom: 8px;
+    }
+    .mpc-score { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: #fff; line-height: 1; margin-bottom: 4px; }
+    .mpc-score .w { color: var(--gold); }
+    .mpc-teams { font-size: 0.8rem; color: var(--muted); }
+    .mpc-date { font-size: 0.7rem; color: rgba(255,255,255,0.38); margin-top: 4px; }
+
+    /* Results Table */
+    .results-full { margin-top: 52px; }
+    .rt-header {
+      display: grid; grid-template-columns: 36px 1fr 1fr 80px 110px;
+      gap: 14px; padding: 12px 24px;
+      background: rgba(10,102,194,0.1); border: 1px solid var(--border);
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted);
+    }
+    .rt-row {
+      display: grid; grid-template-columns: 36px 1fr 1fr 80px 110px;
+      gap: 14px; padding: 16px 24px; background: var(--card);
+      border: 1px solid var(--border); border-top: none; align-items: center; transition: background 0.2s;
+    }
+    .rt-row:last-child { border-radius: 0 0 var(--radius-sm) var(--radius-sm); }
+    .rt-row:hover { background: rgba(10,102,194,0.07); }
+    .rt-row.highlight { border-color: rgba(245,166,35,0.22); }
+    .rt-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; color: var(--muted); }
+    .rt-teams { font-weight: 600; font-size: 0.9rem; }
+    .rt-teams .vs { color: var(--muted); font-size: 0.76rem; margin: 0 5px; }
+    .rt-comp { font-size: 0.76rem; color: var(--muted); }
+    .rt-score { font-family: 'Bebas Neue', sans-serif; font-size: 1.45rem; display: flex; align-items: center; gap: 3px; }
+    .rt-score .w { color: var(--gold); }
+    .rt-score .sep { color: var(--muted); font-size: 0.95rem; margin: 0 2px; }
+    .rt-badge {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 20px; display: inline-block;
+    }
+    .rt-badge.win { background: rgba(34,197,94,0.1); color: #4ade80; border: 1px solid rgba(34,197,94,0.28); }
+    .rt-badge.draw { background: rgba(234,179,8,0.1); color: #facc15; border: 1px solid rgba(234,179,8,0.28); }
+    .rt-badge.upcoming { background: rgba(10,102,194,0.1); color: #60a5fa; border: 1px solid rgba(10,102,194,0.28); }
+
+    /* ─── PLAYERS ─── */
+    .players-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 22px; margin-top: 44px;
+    }
+    .player-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); overflow: hidden; position: relative;
+      transition: border-color 0.35s, transform 0.35s, box-shadow 0.35s;
+    }
+    .player-card:hover { border-color: var(--gold); transform: translateY(-7px); box-shadow: 0 20px 48px rgba(0,0,0,0.4); }
+    .player-img-wrap { height: 280px; overflow: hidden; position: relative; background: var(--bg3); }
+    .player-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      display: block; transition: transform 0.5s var(--ease);
+    }
+    .player-card:hover .player-img-wrap img { transform: scale(1.06); }
+    .player-pos-badge {
+      position: absolute; top: 14px; left: 14px;
+      background: rgba(8,13,26,0.88); backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--border-gold);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.66rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); padding: 4px 11px; border-radius: 20px;
+    }
+    .player-num-badge {
+      position: absolute; top: 12px; right: 14px;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem;
+      color: rgba(255,255,255,0.1); line-height: 1;
+    }
+    .player-info { padding: 20px 22px 22px; }
+    .player-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.65rem; line-height: 1; color: #fff; margin-bottom: 3px; }
+    .player-role { font-size: 0.78rem; color: var(--muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; }
+    .player-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+    .pstat { background: var(--bg3); border-radius: 10px; padding: 9px 12px; text-align: center; }
+    .pstat-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem; color: var(--gold); line-height: 1; }
+    .pstat-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+
+    /* ─── JUNIOR ─── */
+    .junior-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .junior-img-wrap { position: relative; border-radius: var(--radius-lg); overflow: hidden; }
+    .junior-img-wrap img {
+      width: 100%; height: 500px;
+      object-fit: cover; object-position: center;
+      display: block; border-radius: var(--radius-lg);
+    }
+    .junior-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom right, rgba(5,8,16,0.55), transparent);
+      border-radius: var(--radius-lg);
+    }
+    .junior-corner-badge {
+      position: absolute; bottom: 20px; right: 20px;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      color: #000; padding: 12px 20px; border-radius: var(--radius-md); text-align: center;
+    }
+    .jcb-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; line-height: 1; }
+    .jcb-sub { font-size: 0.68rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; }
+    .junior-text p { color: var(--muted); line-height: 1.82; font-size: 1.02rem; margin-bottom: 16px; }
+    .junior-features { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+    .jfeature {
+      display: flex; align-items: center; gap: 13px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 13px 18px; transition: border-color 0.25s;
+    }
+    .jfeature:hover { border-color: var(--gold); }
+    .jfeature i { color: var(--gold); font-size: 1rem; width: 18px; text-align: center; flex-shrink: 0; }
+    .jfeature span { font-size: 0.92rem; font-weight: 600; }
+
+    /* ─── GALLERY ─── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 240px;
+      gap: 16px; margin-top: 44px;
+    }
+    .gallery-item {
+      border-radius: var(--radius-md); overflow: hidden; position: relative;
+      border: 1px solid var(--border); transition: border-color 0.3s, transform 0.3s; cursor: pointer;
+    }
+    .gallery-item:hover { border-color: var(--gold); transform: scale(1.02); z-index: 2; }
+    .gallery-item.tall { grid-row: span 2; }
+    .gallery-item.wide { grid-column: span 2; }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block; transition: transform 0.5s var(--ease);
+    }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(5,8,16,0.9) 0%, transparent 60%);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-caption {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 18px 20px;
+      transform: translateY(8px); opacity: 0; transition: all 0.3s;
+    }
+    .gallery-item:hover .gallery-caption { transform: translateY(0); opacity: 1; }
+    .gc-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.66rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; }
+    .gc-title { font-size: 0.95rem; font-weight: 700; }
+
+    /* ─── SPONSORS ─── */
+    .sponsors-inner {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 44px;
+    }
+    .sponsors-grid { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 28px; }
+    .sponsor-chip {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 14px 24px;
+      display: flex; align-items: center; gap: 11px; transition: border-color 0.25s;
+    }
+    .sponsor-chip:hover { border-color: var(--gold); }
+    .sponsor-chip i { color: var(--gold); font-size: 1.2rem; }
+    .sponsor-chip span { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; font-size: 0.88rem; }
+
+    .bday-strip {
+      margin-top: 28px;
+      background: linear-gradient(110deg, rgba(245,166,35,0.08), rgba(10,102,194,0.08));
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-md); padding: 18px 24px;
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+    .bday-strip i { font-size: 1.4rem; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+    .bday-strip p { font-size: 0.93rem; line-height: 1.72; color: var(--text); }
+    .bday-strip strong { color: var(--gold); }
+
+    /* ─── CONTACT ─── */
+    .contact-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; align-items: start; }
+    .contact-info p { color: var(--muted); line-height: 1.82; font-size: 1.02rem; margin-bottom: 28px; }
+    .contact-details { display: flex; flex-direction: column; gap: 14px; }
+    .cdetail {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 14px 18px;
+    }
+    .cdetail i { color: var(--gold); font-size: 1.05rem; width: 18px; text-align: center; flex-shrink: 0; }
+    .cdetail-label { font-size: 0.67rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+    .cdetail-val { font-weight: 600; font-size: 0.92rem; margin-top: 2px; }
+
+    .coach-quote {
+      margin-top: 28px; padding: 22px;
+      background: linear-gradient(135deg, rgba(10,102,194,0.1), rgba(245,166,35,0.06));
+      border: 1px solid var(--border-gold); border-radius: var(--radius-md);
+    }
+    .coach-quote-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--gold); margin-bottom: 8px; }
+    .coach-quote p { font-size: 0.9rem; color: var(--muted); line-height: 1.72; font-style: italic; }
+
+    .form-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 40px;
+    }
+    .form-title { font-family: 'Bebas Neue', sans-serif; font-size: 2.1rem; margin-bottom: 26px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 7px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; background: var(--bg3);
+      border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 16px;
+      color: var(--text); font-family: 'Barlow', sans-serif; font-size: 0.93rem;
+      transition: border-color 0.25s, box-shadow 0.25s; outline: none; appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A8BAD' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px; }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(122,139,173,0.5); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--blue); box-shadow: 0 0 0 3px rgba(10,102,194,0.14);
+    }
+    .form-group textarea { resize: vertical; min-height: 96px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .submit-btn {
+      width: 100%; background: linear-gradient(110deg, var(--blue), var(--blue-deep));
+      color: #fff; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+      padding: 15px; border-radius: var(--radius-sm); border: none; cursor: pointer;
+      transition: all 0.3s var(--ease); margin-top: 8px;
+      box-shadow: 0 8px 28px rgba(10,102,194,0.28);
+    }
+    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(10,102,194,0.48); }
+    .submit-btn i { margin-right: 8px; }
+
+    #formSuccess {
+      display: none; text-align: center; color: #4ade80;
+      margin-top: 14px; font-weight: 700; font-size: 0.93rem;
+      padding: 14px; background: rgba(34,197,94,0.08);
+      border: 1px solid rgba(34,197,94,0.25); border-radius: var(--radius-sm);
+    }
+
+    /* ─── FOOTER ─── */
+    footer { background: #020509; border-top: 1px solid var(--border); padding: 60px 5% 28px; }
+    .footer-inner {
+      max-width: 1320px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px; margin-bottom: 44px;
+    }
+    .footer-brand p { color: var(--muted); font-size: 0.9rem; line-height: 1.8; margin-top: 14px; max-width: 300px; }
+    .footer-col h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.74rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-col ul li a { color: var(--muted); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--gold); }
+    .footer-bottom {
+      max-width: 1320px; margin: 0 auto;
+      border-top: 1px solid var(--border); padding-top: 22px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-bottom p { font-size: 0.8rem; color: var(--muted); }
+    .social-links { display: flex; gap: 10px; }
+    .social-link {
+      width: 36px; height: 36px; border-radius: 9px;
+      background: var(--card); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); text-decoration: none; transition: all 0.2s;
+      font-size: 0.85rem;
+    }
+    .social-link:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ─── ANIMATIONS ─── */
+    .fade-up {
+      opacity: 0; transform: translateY(36px);
+      transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+    }
+    .fade-up.in { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 0.1s; }
+    .d2 { transition-delay: 0.2s; }
+    .d3 { transition-delay: 0.32s; }
+    .d4 { transition-delay: 0.44s; }
+
+    /* ─── SEASON BADGE ─── */
+    .season-badge { text-align: right; }
+    .season-badge .label-small { font-family: 'Barlow Condensed', sans-serif; font-size: 0.76rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+    .season-badge .record { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--gold); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .about-grid, .junior-layout, .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+      .about-img-block img, .junior-img-wrap img { height: 400px; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item.wide { grid-column: span 1; }
+      .gallery-item.tall { grid-row: span 1; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 36px; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 80px 5%; }
+      .fm-body { grid-template-columns: 1fr; gap: 16px; text-align: center; padding: 24px; }
+      .fm-footer { padding: 16px 24px 24px; gap: 16px; justify-content: flex-start; }
+      .match-photo-grid { grid-template-columns: 1fr; }
+      .rt-header { grid-template-columns: 36px 1fr 80px 90px; }
+      .rt-row { grid-template-columns: 36px 1fr 80px 90px; }
+      .rt-header div:nth-child(3), .rt-row div:nth-child(3) { display: none; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+      .about-pillars { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .players-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+      .hero h1 { font-size: clamp(3.2rem, 13vw, 5.5rem); }
+      .hero h1 .line2 { font-size: clamp(2.2rem, 8vw, 3.5rem); }
+      .matchcenter-header { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .hstat { flex: 1; min-width: 120px; }
+      .sponsors-inner { padding: 28px 20px; }
+      .form-card { padding: 26px 20px; }
+      .rt-header, .rt-row { grid-template-columns: 1fr 1fr; padding: 12px 16px; }
+      .rt-header div:nth-child(1), .rt-row div:nth-child(1),
+      .rt-header div:nth-child(3), .rt-row div:nth-child(3) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ NAV ════════════════════════════════════ -->
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a href="#home" class="nav-logo" aria-label="Star To-Be Soccer Academy Home">
+      <img src="img/logo.jpg" alt="Star To-Be FC Badge" style="width:52px;height:52px;border-radius:12px;object-fit:cover;object-position:center;flex-shrink:0;box-shadow:0 4px 16px rgba(10,102,194,0.45);">
+      <div class="logo-text-wrap">
+        <div class="logo-main">Star To-Be</div>
+        <div class="logo-sub">Soccer Academy</div>
+      </div>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#matchcenter">Match Center</a></li>
+      <li><a href="#players">Stars</a></li>
+      <li><a href="#junior">Junior</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Join</a></li>
+    </ul>
+
+    <div style="display:flex;align-items:center;gap:14px;">
+      <a href="#contact" class="nav-cta">⚡ Trials</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav(this)">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Drawer -->
+<div class="mobile-nav-drawer" id="mobileDrawer">
+  <a href="#about" onclick="closeNav()">About</a>
+  <a href="#matchcenter" onclick="closeNav()">Match Center</a>
+  <a href="#players" onclick="closeNav()">Stars</a>
+  <a href="#junior" onclick="closeNav()">Junior Programme</a>
+  <a href="#gallery" onclick="closeNav()">Gallery</a>
+  <a href="#contact" onclick="closeNav()">Join / Trials</a>
+</div>
+
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════════ -->
+<section class="hero" id="home" aria-label="Hero">
+  <div class="hero-bg" role="img" aria-label="Soccer training background"></div>
+  <div class="hero-gradient"></div>
+  <div class="hero-grid"></div>
+
+  <!-- Floating logo badge — right side of hero -->
+  <div class="hero-logo-right">
+    <img src="img/logo.jpg" alt="Star To-Be FC official badge" class="hero-logo-img">
+    <div class="hero-logo-label">Official Badge</div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Ibeju-Lekki &bull; Lagos &bull; Est. 2023</div>
+    <h1>
+      <span class="line1">Star To-Be</span>
+      <span class="line2">Soccer Academy</span>
+      <span class="line3">Excellence</span>
+    </h1>
+    <p class="hero-desc">
+      Where Lagos talent becomes <strong>world-class football</strong>. Discipline, passion, and champions
+      forged from Ibeju-Lekki to the world stage.
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary"><i class="fas fa-rocket" aria-hidden="true"></i> Join Trials</a>
+      <a href="#matchcenter" class="btn-ghost"><i class="fas fa-chart-bar" aria-hidden="true"></i> Match Center</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat fade-up"><div class="hstat-num">4–0</div><div class="hstat-label">Latest Win</div></div>
+      <div class="hstat fade-up d1"><div class="hstat-num">W3 D1</div><div class="hstat-label">Season Record</div></div>
+      <div class="hstat fade-up d2"><div class="hstat-num">6</div><div class="hstat-label">Clean Sheets</div></div>
+      <div class="hstat fade-up d3"><div class="hstat-num">Final</div><div class="hstat-label">Ramadan Cup</div></div>
+    </div>
+
+    <!-- Mobile logo — only visible on small screens, inside content flow -->
+    <div class="hero-logo-mobile">
+      <img src="img/logo.jpg" alt="Star To-Be FC official badge" class="hero-logo-mobile-img">
+      <div class="hero-logo-mobile-text">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#fff;line-height:1;">Star To-Be FC</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);">Official Badge • Since 2023</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator" aria-hidden="true">
+    <span>Scroll</span>
+    <i class="fas fa-chevron-down" style="font-size:0.78rem;"></i>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ TICKER ════════════════════════════════ -->
+<div class="ticker" aria-label="Live updates ticker" role="marquee">
+  <div class="ticker-track">
+    <span class="ticker-item"><i class="fas fa-trophy" aria-hidden="true"></i> DE ULTIMATE 0 – 4 STAR TO-BE &bull; MASTERS LEAGUE</span>
+    <span class="ticker-item"><i class="fas fa-futbol" aria-hidden="true"></i> STAR TO-BE 4 – 0 SCENIC FC &bull; RAMADAN CUP QF WIN</span>
+    <span class="ticker-item"><i class="fas fa-star" aria-hidden="true"></i> SHARP SHOOTER 0 – 1 STB &bull; SEMIFINAL VICTORY</span>
+    <span class="ticker-item"><i class="fas fa-shield-alt" aria-hidden="true"></i> DIVINE (GK) — 6 CLEAN SHEETS &amp; COUNTING</span>
+    <span class="ticker-item"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> HOME GROUND: ELESEKAN FIELD, IBEJU-LEKKI</span>
+    <span class="ticker-item"><i class="fas fa-calendar-check" aria-hidden="true"></i> RAMADAN CUP FINAL — DATE TBC</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="ticker-item"><i class="fas fa-trophy" aria-hidden="true"></i> DE ULTIMATE 0 – 4 STAR TO-BE &bull; MASTERS LEAGUE</span>
+    <span class="ticker-item"><i class="fas fa-futbol" aria-hidden="true"></i> STAR TO-BE 4 – 0 SCENIC FC &bull; RAMADAN CUP QF WIN</span>
+    <span class="ticker-item"><i class="fas fa-star" aria-hidden="true"></i> SHARP SHOOTER 0 – 1 STB &bull; SEMIFINAL VICTORY</span>
+    <span class="ticker-item"><i class="fas fa-shield-alt" aria-hidden="true"></i> DIVINE (GK) — 6 CLEAN SHEETS &amp; COUNTING</span>
+    <span class="ticker-item"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> HOME GROUND: ELESEKAN FIELD, IBEJU-LEKKI</span>
+    <span class="ticker-item"><i class="fas fa-calendar-check" aria-hidden="true"></i> RAMADAN CUP FINAL — DATE TBC</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ ABOUT ════════════════════════════════ -->
+<section id="about" aria-labelledby="about-title">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-block fade-up">
+        <img src="img/team.jpg" alt="Star To-Be Soccer Academy training session" loading="lazy">
+        <div class="about-img-overlay"></div>
+        <div class="about-img-badge">
+          <div class="aib-icon"><i class="fas fa-bolt" aria-hidden="true"></i></div>
+          <div class="aib-text">
+            <div class="num">2023</div>
+            <div class="sub">Academy Founded</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-text fade-up d2">
+        <span class="label"><i class="fas fa-shield-alt" aria-hidden="true"></i> Our Story</span>
+        <h2 class="section-title" id="about-title">Built in Ibeju-Lekki.<br>Destined for <span class="gold">Greatness.</span></h2>
+        <div class="divider"></div>
+        <p>Star To-Be Soccer Academy was born in 2023 with one mission: to unlock the extraordinary potential of young footballers in Ibeju-Lekki, Lagos. We don't just train players — we build complete athletes, leaders, and champions.</p>
+        <p>From our first match at Elesekan Field to memorable visits at the Liberty Stadium and victories in the Masters League, every step has been a testament to the relentless spirit of the STB family.</p>
+        <div class="about-pillars">
+          <div class="pillar fade-up d1">
+            <div class="pillar-icon">⚡</div>
+            <h4>Intensity</h4>
+            <p>Match-tempo training every session, no exceptions.</p>
+          </div>
+          <div class="pillar fade-up d2">
+            <div class="pillar-icon">🧠</div>
+            <h4>Tactics</h4>
+            <p>Video analysis and positional mastery for every player.</p>
+          </div>
+          <div class="pillar fade-up d3">
+            <div class="pillar-icon">🏆</div>
+            <h4>Character</h4>
+            <p>Discipline, humility, and a relentless winner's mindset.</p>
+          </div>
+          <div class="pillar fade-up d4">
+            <div class="pillar-icon">🌍</div>
+            <h4>Pathway</h4>
+            <p>Clear route from grassroots to professional contracts.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ MATCH CENTER ════════════════════════ -->
+<section id="matchcenter" aria-labelledby="matchcenter-title">
+  <div class="container">
+    <div class="matchcenter-header">
+      <div>
+        <span class="label"><i class="fas fa-chart-bar" aria-hidden="true"></i> Official Records</span>
+        <h2 class="section-title" id="matchcenter-title">Match <span class="gold">Center</span></h2>
+        <div class="divider"></div>
+      </div>
+      <div class="season-badge">
+        <div class="label-small">Season 2025/26</div>
+        <div class="record">W3 D1 L0</div>
+      </div>
+    </div>
+
+    <!-- FEATURED MATCH -->
+    <div class="featured-match fade-up">
+      <div class="fm-top-bar">
+        <span class="fm-badge"><i class="fas fa-trophy" aria-hidden="true" style="margin-right:6px;"></i>Masters League — Featured Match</span>
+        <span class="fm-date"><i class="fas fa-calendar-alt" aria-hidden="true" style="margin-right:5px;"></i>4 March 2026 &bull; Elesekan Field, Lagos</span>
+      </div>
+      <div class="fm-body">
+        <div class="fm-team">
+          <div class="fm-team-logo" aria-label="De Ultimate SA">
+            <i class="fas fa-shield-alt" style="font-size:1.7rem;color:var(--muted);" aria-hidden="true"></i>
+          </div>
+          <div class="fm-team-name">De Ultimate SA</div>
+          <div class="fm-team-sub">Home Side</div>
+        </div>
+        <div class="fm-score" aria-label="Score: 0 to 4">
+          <span class="fm-score-num">0</span>
+          <span class="fm-score-sep">–</span>
+          <span class="fm-score-num win">4</span>
+        </div>
+        <div class="fm-team">
+          <div class="fm-team-logo" style="background:linear-gradient(145deg,var(--blue-deep),var(--blue));border-color:var(--gold);box-shadow:0 0 20px rgba(245,166,35,0.25);" aria-label="Star To-Be SA">
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--gold);">STB</span>
+          </div>
+          <div class="fm-team-name" style="color:var(--gold);">Star To-Be SA</div>
+          <div class="fm-team-sub">Away — DOMINANT WIN ⚡</div>
+        </div>
+      </div>
+      <div class="fm-footer">
+        <div class="fm-stat"><i class="fas fa-futbol" aria-hidden="true"></i> <span>Scorers: <strong>Martial, Dennis, Ighalo, Ayo</strong></span></div>
+        <div class="fm-stat"><i class="fas fa-hand-paper" aria-hidden="true"></i> <span>Clean Sheet: <strong>Divine (GK)</strong></span></div>
+        <div class="fm-stat"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> <span>Venue: <strong>Elesekan Field</strong></span></div>
+        <div class="fm-stat"><i class="fas fa-star" aria-hidden="true"></i> <span>MOTM: <strong>Ighalo</strong></span></div>
+      </div>
+    </div>
+
+    <!-- MATCH PHOTO CARDS -->
+    <div class="match-photo-grid fade-up d2">
+      <div class="match-photo-card">
+        <img src="img/match.jpg" alt="STB match day action" loading="lazy">
+        <div class="mpc-overlay"></div>
+        <div class="mpc-content">
+          <span class="mpc-label">⚡ Match Day Action</span>
+          <div class="mpc-score">DE ULTIMATE <span class="w">0 – 4</span> STB</div>
+          <div class="mpc-teams">Star To-Be in dominant form — Masters League</div>
+          <div class="mpc-date"><i class="fas fa-calendar-alt" aria-hidden="true" style="margin-right:4px;"></i>4 March 2026</div>
+        </div>
+      </div>
+      <div class="match-photo-card">
+        <img src="img/coach.jpg" alt="Coach Mike — pre-match session" loading="lazy">
+        <div class="mpc-overlay"></div>
+        <div class="mpc-content">
+          <span class="mpc-label">🔥 Coaching Staff</span>
+          <div class="mpc-score">COACH <span class="w">MIKE</span></div>
+          <div class="mpc-teams">The engine room — locked in before game day</div>
+          <div class="mpc-date"><i class="fas fa-dumbbell" aria-hidden="true" style="margin-right:4px;"></i>Pre-Match Training Session</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS TABLE -->
+    <div class="results-full fade-up d3">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:12px;">
+        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.75rem;">All Results — 2025/26</h3>
+        <span class="label" style="margin-bottom:0;"><i class="fas fa-list" aria-hidden="true"></i> Complete Record</span>
+      </div>
+      <div class="rt-header" role="row">
+        <div>#</div>
+        <div>Match</div>
+        <div class="rt-comp">Competition</div>
+        <div>Score</div>
+        <div>Result</div>
+      </div>
+      <div class="rt-row" role="row">
+        <div class="rt-num">1</div>
+        <div class="rt-teams">De Ultimate <span class="vs">vs</span> Star To-Be</div>
+        <div class="rt-comp">Masters League &bull; 4 Mar 2026</div>
+        <div class="rt-score"><span class="w">0</span><span class="sep">–</span><span class="w">4</span></div>
+        <div><span class="rt-badge win">WIN</span></div>
+      </div>
+      <div class="rt-row" role="row">
+        <div class="rt-num">2</div>
+        <div class="rt-teams">Top FC <span class="vs">vs</span> Star To-Be</div>
+        <div class="rt-comp">Ramadan Cup &bull; 14 Mar 2026</div>
+        <div class="rt-score"><span>0</span><span class="sep">–</span><span>0</span></div>
+        <div><span class="rt-badge draw">DRAW</span></div>
+      </div>
+      <div class="rt-row" role="row">
+        <div class="rt-num">3</div>
+        <div class="rt-teams">Star To-Be <span class="vs">vs</span> Scenic FC</div>
+        <div class="rt-comp">Ramadan Cup QF &bull; 17 Mar 2026</div>
+        <div class="rt-score"><span class="w">4</span><span class="sep">–</span><span>0</span></div>
+        <div><span class="rt-badge win">WIN</span></div>
+      </div>
+      <div class="rt-row" role="row">
+        <div class="rt-num">4</div>
+        <div class="rt-teams">Sharp Shooter <span class="vs">vs</span> STB</div>
+        <div class="rt-comp">Ramadan Cup SF &bull; 19 Mar 2026</div>
+        <div class="rt-score"><span>0</span><span class="sep">–</span><span class="w">1</span></div>
+        <div><span class="rt-badge win">WIN</span></div>
+      </div>
+      <div class="rt-row highlight" role="row">
+        <div class="rt-num" style="color:var(--gold);">5</div>
+        <div class="rt-teams" style="color:var(--gold);">Star To-Be <span class="vs">vs</span> TBC Opponent</div>
+        <div class="rt-comp">Ramadan Cup Final — TBD</div>
+        <div class="rt-score" style="font-size:0.95rem;color:var(--muted);">—</div>
+        <div><span class="rt-badge upcoming">UPCOMING</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ PLAYERS ══════════════════════════════ -->
+<section id="players" aria-labelledby="players-title">
+  <div class="container">
+    <span class="label"><i class="fas fa-users" aria-hidden="true"></i> First Team</span>
+    <h2 class="section-title" id="players-title">Academy <span class="gold">Stars</span></h2>
+    <div class="divider"></div>
+
+    <div class="players-grid">
+
+      <div class="player-card fade-up">
+        <div class="player-img-wrap">
+          <img src="img/PLAYER.jpg" alt="Midfield maestro player" loading="lazy">
+          <span class="player-pos-badge">Central Midfield</span>
+          <span class="player-num-badge" aria-hidden="true">08</span>
+        </div>
+        <div class="player-info">
+          <div class="player-name">PLAYER</div>
+          <div class="player-role">Midfield Maestro — Engine Room</div>
+          <div class="player-stats">
+            <div class="pstat"><div class="pstat-num">7</div><div class="pstat-label">Key Passes</div></div>
+            <div class="pstat"><div class="pstat-num">3</div><div class="pstat-label">Goals</div></div>
+            <div class="pstat"><div class="pstat-num">4</div><div class="pstat-label">Assists</div></div>
+            <div class="pstat"><div class="pstat-num">95%</div><div class="pstat-label">Pass Acc.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card fade-up d2">
+        <div class="player-img-wrap">
+          <img src="img/team.jpg" alt="Box-to-box midfielder" loading="lazy">
+          <span class="player-pos-badge">Box-to-Box Mid</span>
+          <span class="player-num-badge" aria-hidden="true">06</span>
+        </div>
+        <div class="player-info">
+          <div class="player-name">PLAYER</div>
+          <div class="player-role">Midfield Maestro — Power &amp; Vision</div>
+          <div class="player-stats">
+            <div class="pstat"><div class="pstat-num">5</div><div class="pstat-label">Key Passes</div></div>
+            <div class="pstat"><div class="pstat-num">2</div><div class="pstat-label">Goals</div></div>
+            <div class="pstat"><div class="pstat-num">6</div><div class="pstat-label">Tackles</div></div>
+            <div class="pstat"><div class="pstat-num">88%</div><div class="pstat-label">Duel Win</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card fade-up d3">
+        <div class="player-img-wrap">
+          <img src="img/team.jpg" alt="Divine — Goalkeeper and Captain" loading="lazy">
+          <span class="player-pos-badge" style="background:rgba(34,197,94,0.16);border-color:rgba(34,197,94,0.38);color:#4ade80;">Goalkeeper</span>
+          <span class="player-num-badge" aria-hidden="true">01</span>
+        </div>
+        <div class="player-info">
+          <div class="player-name">Divine</div>
+          <div class="player-role">The Wall — Commanding GK &amp; Captain</div>
+          <div class="player-stats">
+            <div class="pstat"><div class="pstat-num">6</div><div class="pstat-label">Clean Sheets</div></div>
+            <div class="pstat"><div class="pstat-num">0</div><div class="pstat-label">Goals Conc.</div></div>
+            <div class="pstat"><div class="pstat-num">14</div><div class="pstat-label">Saves</div></div>
+            <div class="pstat"><div class="pstat-num">⭐</div><div class="pstat-label">Captain</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card fade-up">
+        <div class="player-img-wrap">
+          <img src="img/adyinka.jpg" alt="Quadri — striker" loading="lazy">
+          <span class="player-pos-badge" style="background:rgba(239,68,68,0.16);border-color:rgba(239,68,68,0.38);color:#f87171;">Striker</span>
+          <span class="player-num-badge" aria-hidden="true">09</span>
+        </div>
+        <div class="player-info">
+          <div class="player-name">Quadri</div>
+          <div class="player-role">Centre Forward — Clinical Finisher</div>
+          <div class="player-stats">
+            <div class="pstat"><div class="pstat-num">5</div><div class="pstat-label">Goals</div></div>
+            <div class="pstat"><div class="pstat-num">2</div><div class="pstat-label">Assists</div></div>
+            <div class="pstat"><div class="pstat-num">4</div><div class="pstat-label">MOTM</div></div>
+            <div class="pstat"><div class="pstat-num">78%</div><div class="pstat-label">Shot Acc.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card fade-up d2">
+        <div class="player-img-wrap">
+          <img src="img/akara.jpg" alt="Dennis — winger and forward" loading="lazy">
+          <span class="player-pos-badge">Winger / Forward</span>
+          <span class="player-num-badge" aria-hidden="true">11</span>
+        </div>
+        <div class="player-info">
+          <div class="player-name">Dennis</div>
+          <div class="player-role">Winger — Speed &amp; Creativity</div>
+          <div class="player-stats">
+            <div class="pstat"><div class="pstat-num">3</div><div class="pstat-label">Goals</div></div>
+            <div class="pstat"><div class="pstat-num">5</div><div class="pstat-label">Assists</div></div>
+            <div class="pstat"><div class="pstat-num">12</div><div class="pstat-label">Dribbles</div></div>
+            <div class="pstat"><div class="pstat-num">2</div><div class="pstat-label">MOTM</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card fade-up d3">
+        <div class="player-img-wrap">
+          <img src="img/coach.jpg" alt="Enoch — creative midfielder" loading="lazy">
+          <span class="player-pos-badge">Attacking Mid</span>
+          <span class="player-num-badge" aria-hidden="true">10</span>
+        </div>
+        <div class="player-info">
+          <div class="player-name">Enoch</div>
+          <div class="player-role">Creative Midfielder — The Playmaker</div>
+          <div class="player-stats">
+            <div class="pstat"><div class="pstat-num">4</div><div class="pstat-label">Goals</div></div>
+            <div class="pstat"><div class="pstat-num">6</div><div class="pstat-label">Assists</div></div>
+            <div class="pstat"><div class="pstat-num">🎂</div><div class="pstat-label">30 Jun</div></div>
+            <div class="pstat"><div class="pstat-num">⚡</div><div class="pstat-label">Star Player</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ JUNIOR ═══════════════════════════════ -->
+<section id="junior" aria-labelledby="junior-title">
+  <div class="container">
+    <div class="junior-layout">
+      <div class="junior-img-wrap fade-up">
+        <img src="img/junior_team.jpg" alt="Junior team training session" loading="lazy">
+        <div class="junior-img-overlay"></div>
+        <div class="junior-corner-badge">
+          <div class="jcb-num">U17</div>
+          <div class="jcb-sub">Junior Squad</div>
+        </div>
+      </div>
+      <div class="junior-text fade-up d2">
+        <span class="label"><i class="fas fa-seedling" aria-hidden="true"></i> Future Stars</span>
+        <h2 class="section-title" id="junior-title">The Next <span class="gold">Generation</span></h2>
+        <div class="divider"></div>
+        <p>Our junior programme is the heart of Star To-Be. We nurture raw talent from as young as 8 years old, building technique, confidence, and the mental fortitude to compete at the highest levels.</p>
+        <p>From Ibeju-Lekki to the Liberty Stadium — every junior player at STB carries the same dream: to become unstoppable. We give them the coaching, the structure, and the belief to get there.</p>
+        <div class="junior-features">
+          <div class="jfeature"><i class="fas fa-graduation-cap" aria-hidden="true"></i><span>Structured Age-Group Coaching from U8 to U17</span></div>
+          <div class="jfeature"><i class="fas fa-heartbeat" aria-hidden="true"></i><span>Fitness &amp; Sports Science tailored for youth development</span></div>
+          <div class="jfeature"><i class="fas fa-futbol" aria-hidden="true"></i><span>Weekly league fixtures &amp; inter-academy tournaments</span></div>
+          <div class="jfeature"><i class="fas fa-users" aria-hidden="true"></i><span>Mentorship by senior STB first-team players</span></div>
+          <div class="jfeature"><i class="fas fa-trophy" aria-hidden="true"></i><span>Clear pathway to the first-team squad</span></div>
+        </div>
+        <div style="margin-top:28px;display:flex;gap:13px;flex-wrap:wrap;">
+          <a href="#contact" class="btn-primary"><i class="fas fa-child" aria-hidden="true"></i> Enroll Your Child</a>
+          <a href="#about" class="btn-ghost">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ GALLERY ══════════════════════════════ -->
+<section id="gallery" aria-labelledby="gallery-title">
+  <div class="container">
+    <span class="label"><i class="fas fa-camera" aria-hidden="true"></i> #STBMoments</span>
+    <h2 class="section-title" id="gallery-title">Matchdays, Training <span class="gold">&amp; Away Days</span></h2>
+    <div class="divider"></div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item tall fade-up">
+        <img src="img/traning.jpg" alt="Match action against De Ultimate SA" loading="lazy">
+        <div class="gallery-overlay"></div>
+        <div class="gallery-caption">
+          <div class="gc-tag">🏆 Match Day</div>
+          <div class="gc-title">STB vs De Ultimate SA — Masters League</div>
+        </div>
+      </div>
+      <div class="gallery-item fade-up d2">
+        <img src="img/coach.jpg" alt="Coach Mike during training" loading="lazy">
+        <div class="gallery-overlay"></div>
+        <div class="gallery-caption">
+          <div class="gc-tag">🔥 Training</div>
+          <div class="gc-title">Coach Mike — Building Champions</div>
+        </div>
+      </div>
+      <div class="gallery-item fade-up d3">
+        <img src="img/jnr.jpg" alt="Junior team intensity" loading="lazy">
+        <div class="gallery-overlay"></div>
+        <div class="gallery-caption">
+          <div class="gc-tag">⚡ Intensity</div>
+          <div class="gc-title">Junior Stars — Elesekan Field</div>
+        </div>
+      </div>
+      <div class="gallery-item wide fade-up d1">
+        <img src="img/team_training.jpg" alt="Full team training session" loading="lazy">
+        <div class="gallery-overlay"></div>
+        <div class="gallery-caption">
+          <div class="gc-tag">🌟 Academy Life</div>
+          <div class="gc-title">Pre-match preparation — The STB Way</div>
+        </div>
+      </div>
+      <div class="gallery-item fade-up d2">
+        <img src="img/match.jpg" alt="Match day STB" loading="lazy">
+        <div class="gallery-overlay"></div>
+        <div class="gallery-caption">
+          <div class="gc-tag">🏅 Victory</div>
+          <div class="gc-title">Unstoppable. Fearless. STB.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ SPONSORS ═════════════════════════════ -->
+<section id="sponsors" aria-labelledby="sponsors-title">
+  <div class="container">
+    <div class="sponsors-inner fade-up">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+        <div>
+          <span class="label" style="margin-bottom:10px;"><i class="fas fa-handshake" aria-hidden="true"></i> Our Partners</span>
+          <h2 class="section-title" id="sponsors-title" style="font-size:clamp(2rem,4vw,3rem);">Official <span class="gold">Sponsors</span></h2>
+        </div>
+      </div>
+      <div class="sponsors-grid">
+        <div class="sponsor-chip"><i class="fas fa-building" aria-hidden="true"></i><span>Popo Properties Nig Ltd</span></div>
+        <div class="sponsor-chip"><i class="fas fa-hard-hat" aria-hidden="true"></i><span>Alibaba Contracting Company Ltd</span></div>
+        <div class="sponsor-chip" style="border-color:var(--border-gold);"><i class="fas fa-star" aria-hidden="true"></i><span>Rowland Promise</span></div>
+        <div class="sponsor-chip" style="border-color:var(--border-gold);"><i class="fas fa-star" aria-hidden="true"></i><span>Mr. Amule Olayinka Samuel</span></div>
+      </div>
+      <div class="bday-strip">
+        <i class="fas fa-birthday-cake" aria-hidden="true"></i>
+        <p>
+          🎂 The entire STB Family celebrates our founding pillars: <strong>Rowland Promise</strong> and <strong>Mr. Amule Olayinka Samuel</strong> —
+          thank you for believing in this vision. Special love to star player <strong>Namene Enoch</strong> (🎂 30th June) and our beloved
+          <strong>Coach Michael Onah</strong> (🎂 1st October). You are the backbone of this great club. <strong>STB Family — Forever United!</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ CONTACT ══════════════════════════════ -->
+<section id="contact" aria-labelledby="contact-title">
+  <div class="container">
+    <div class="contact-layout">
+      <div class="contact-info fade-up">
+        <span class="label"><i class="fas fa-door-open" aria-hidden="true"></i> Join the Family</span>
+        <h2 class="section-title" id="contact-title">Ready to <span class="gold">Become</span> a Star?</h2>
+        <div class="divider"></div>
+        <p>Whether you're a rising talent, a parent seeking the best academy for your child, or a scout looking for the next big thing — the STB door is always open. Fill out the form and we'll be in touch within 24 hours.</p>
+        <div class="contact-details">
+          <div class="cdetail">
+            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+            <div>
+              <div class="cdetail-label">Location</div>
+              <div class="cdetail-val">Elesekan Field, Ibeju-Lekki, Lagos</div>
+            </div>
+          </div>
+          <div class="cdetail">
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            <div>
+              <div class="cdetail-label">Training Times</div>
+              <div class="cdetail-val">Tue, Thu &amp; Sat — 7:00 AM &amp; 4:00 PM</div>
+            </div>
+          </div>
+          <div class="cdetail">
+            <i class="fab fa-instagram" aria-hidden="true"></i>
+            <div>
+              <div class="cdetail-label">Instagram</div>
+              <div class="cdetail-val">@startobesa</div>
+            </div>
+          </div>
+          <div class="cdetail">
+            <i class="fas fa-users" aria-hidden="true"></i>
+            <div>
+              <div class="cdetail-label">Age Groups</div>
+              <div class="cdetail-val">U8, U10, U13, U15, U17 &amp; Seniors</div>
+            </div>
+          </div>
+        </div>
+        <div class="coach-quote">
+          <div class="coach-quote-name">🏆 Coach Michael Onah</div>
+          <p>"At Star To-Be, we don't just train footballers — we build futures. Every player who walks through our gates leaves better than they arrived. That is our promise."</p>
+        </div>
+      </div>
+
+      <div class="form-card fade-up d2">
+        <div class="form-title">Trial <span style="color:var(--gold);">Registration</span></div>
+        <form id="trialForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" name="firstName" placeholder="e.g. Chigozie" required autocomplete="given-name">
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="lastName" placeholder="e.g. Okonkwo" required autocomplete="family-name">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="+234 800 0000 000" required autocomplete="tel">
+            </div>
+            <div class="form-group">
+              <label for="dob">Date of Birth</label>
+              <input type="date" id="dob" name="dob" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="position">Position</label>
+              <select id="position" name="position">
+                <option value="" disabled selected>Select Position</option>
+                <option value="goalkeeper">Goalkeeper</option>
+                <option value="defender">Defender</option>
+                <option value="midfielder">Central Midfielder</option>
+                <option value="winger">Winger</option>
+                <option value="striker">Striker</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="ageGroup">Age Group</label>
+              <select id="ageGroup" name="ageGroup">
+                <option value="" disabled selected>Select Group</option>
+                <option value="u8">U8</option>
+                <option value="u10">U10</option>
+                <option value="u13">U13</option>
+                <option value="u15">U15</option>
+                <option value="u17">U17</option>
+                <option value="senior">Senior</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="bio">Tell us about yourself / your child</label>
+            <textarea id="bio" name="bio" placeholder="Brief background — previous clubs, experience, or any other relevant information…"></textarea>
+          </div>
+          <button type="submit" class="submit-btn">
+            <i class="fas fa-bolt" aria-hidden="true"></i> Submit Registration
+          </button>
+        </form>
+        <div id="formSuccess" role="alert" aria-live="polite">
+          ✅ Registration received! We'll contact you within 24 hours. STB Family ⚡
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <img src="img/logo.jpg" alt="Star To-Be FC Badge" style="width:48px;height:48px;border-radius:10px;object-fit:cover;object-position:center;flex-shrink:0;">
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:2px;">Star To-Be SA</div>
+          <div style="font-size:0.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);">Soccer Academy</div>
+        </div>
+      </div>
+      <p>Forging the next generation of Lagos football talent from Ibeju-Lekki to the world stage. Discipline. Passion. Greatness.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#about">About the Academy</a></li>
+        <li><a href="#matchcenter">Match Center</a></li>
+        <li><a href="#players">Our Stars</a></li>
+        <li><a href="#junior">Junior Programme</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#contact">Trial Registration</a></li>
+        <li><a href="#sponsors">Our Sponsors</a></li>
+        <li><a href="https://www.instagram.com/startobesa" target="_blank" rel="noopener noreferrer">Instagram @startobesa</a></li>
+        <li><a href="#contact">WhatsApp Group</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Star To-Be Soccer Academy, Ibeju-Lekki, Lagos. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://www.instagram.com/startobesa" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+      <a href="#contact" class="social-link" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+      <a href="#" class="social-link" aria-label="Twitter / X"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+      <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ─── NAV MOBILE ─── */
+  function toggleNav(btn) {
+    const drawer = document.getElementById('mobileDrawer');
+    const isOpen = drawer.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen);
+    // Animate hamburger lines
+    const spans = btn.querySelectorAll('span');
+    if (isOpen) {
+      spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+    } else {
+      spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+    }
+  }
+  function closeNav() {
+    const drawer = document.getElementById('mobileDrawer');
+    const btn = document.getElementById('hamburger');
+    drawer.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+  }
+
+  /* ─── NAV SCROLL ─── */
+  const mainNav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    mainNav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  /* ─── SCROLL ANIMATIONS ─── */
+  const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        fadeObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+
+  /* ─── HERO STATS ON LOAD ─── */
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.hero .fade-up').forEach((el, i) => {
+        setTimeout(() => el.classList.add('in'), i * 140);
+      });
+    }, 350);
+  });
+
+  /* ─── FORM SUBMIT ─── */
+  document.getElementById('trialForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const success = document.getElementById('formSuccess');
+    this.style.opacity = '0.4';
+    this.style.pointerEvents = 'none';
+    success.style.display = 'block';
+    // Smooth scroll to success message
+    success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  /* ─── CLOSE MOBILE NAV ON OUTSIDE CLICK ─── */
+  document.addEventListener('click', (e) => {
+    const drawer = document.getElementById('mobileDrawer');
+    const btn = document.getElementById('hamburger');
+    if (drawer.classList.contains('open') && !drawer.contains(e.target) && !btn.contains(e.target)) {
+      closeNav();
+    }
+  });
+</script>
+
+</body>
+</html>
